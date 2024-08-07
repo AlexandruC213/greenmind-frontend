@@ -9,10 +9,6 @@ Welcome to the frontend repository of greenmind! This project is built with Reac
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
 - [Running the Project](#running-the-project)
-- [Folder Structure](#folder-structure)
-- [Available Scripts](#available-scripts)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Getting Started
 
