@@ -21,6 +21,7 @@ Follow these instructions to set up and run the project locally.
 ### Design
 
 [registration](<https://www.figma.com/design/J7iWCEcvSeOgg3LtucOVJC/Desktop-sign-up-and-login-pages-by-EditorM-(Community)?node-id=0-1&t=bOvy4qz7msrj8JyM-0>)
+
 [app](<https://www.figma.com/design/M0xbzLdMQerdPQ957qhsJW/E-Commerce-Plant-Shop-Website-(Community)?node-id=0-1&t=I1Dg9siVCzeJOIGR-0>)
 
 ### Prerequisites
@@ -44,8 +45,8 @@ Follow these instructions to set up and run the project locally.
 
 ### Running the Project
 
-To start the development server, run:
-
+    To start the development server, run:
     ```bash
     npm run dev
     ```
+    This will run the app in development mode. Open http://localhost:3000 to view it in the browser.
