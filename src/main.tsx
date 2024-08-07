@@ -1,24 +1,51 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "@/components/App";
-import Register from "@/components//registration/Register";
-import Login from "@/components/registration/Login";
+import { ChakraProvider } from "@chakra-ui/react";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  RouteObject,
+} from "react-router-dom";
+
+import AuthForm from "@/components/registration/AuthForm";
+import TermsPolicy from "@/components/registration/TermsPolicy";
+import ForgotPassword from "@/components/registration/ForgotPassword";
+import AuthLayout from "@/components/layouts/AuthLayout";
+
 import "./index.css";
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-import { ChakraProvider } from "@chakra-ui/react";
-
-const router = createBrowserRouter([
+const authRoutes: RouteObject[] = [
   {
     path: "/register",
-    element: <Register />,
+    element: <AuthForm />,
   },
   {
     path: "/login",
-    element: <Login />,
+    element: <AuthForm />,
   },
-]);
+  {
+    path: "/terms-policy",
+    element: <TermsPolicy />,
+  },
+  {
+    path: "/forgot-password",
+    element: <ForgotPassword />,
+  },
+  {
+    path: "/reset-password",
+    element: <ForgotPassword />,
+  },
+];
+
+const routes: RouteObject[] = [
+  {
+    path: "/",
+    element: <AuthLayout />,
+    children: [...authRoutes],
+  },
+];
+
+const router = createBrowserRouter(routes);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
