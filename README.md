@@ -45,8 +45,8 @@ Follow these instructions to set up and run the project locally.
 
 ### Running the Project
 
-    To start the development server, run:
-    ```bash
-    npm run dev
-    ```
-    This will run the app in development mode. Open http://localhost:3000 to view it in the browser.
+1. To start the development server, run:
+   ```bash
+   npm run dev
+   ```
+2. This will run the app in development mode. Open http://localhost:3000 to view it in the browser.
