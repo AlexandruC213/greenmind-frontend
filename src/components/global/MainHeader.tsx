@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Flex, Text, IconButton, Spacer } from "@chakra-ui/react";
-import { FaUser, FaSignOutAlt } from "react-icons/fa";
+import { FaSignOutAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import "@/assets/fonts/quellaFont.css";
 import Cookies from "js-cookie";

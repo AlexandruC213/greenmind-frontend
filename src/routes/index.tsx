@@ -9,6 +9,9 @@ import ForgotPassword from "@/components/registration/ForgotPassword";
 
 import ProductsPage from "@/components/products/ProductsPage";
 import ProductPage from "@/components/products/ProductPage";
+import RequireAuth from "@/components/products/RequireAuth";
+
+import NotFound from "@/components/global/NotFound";
 
 const authRoutes: RouteObject[] = [
   {
@@ -52,10 +55,14 @@ const routes: RouteObject[] = [
   },
   {
     path: "/products",
-    element: <MainLayout />,
+    element: (
+      <RequireAuth>
+        <MainLayout />
+      </RequireAuth>
+    ),
     children: [...productsRoutes],
   },
-  { path: "/settings", element: <div>Settings Page</div> },
+  { path: "*", element: <NotFound /> },
 ];
 
 export default routes;
