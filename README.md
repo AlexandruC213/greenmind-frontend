@@ -22,8 +22,8 @@ Follow these instructions to set up and run the project locally.
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/en/download/) (v14 or later)
-- [npm](https://www.npmjs.com/get-npm) or [yarn](https://classic.yarnpkg.com/en/docs/install)
+- [Node.js](https://nodejs.org/en/download/)
+- [npm](https://www.npmjs.com/get-npm)
 
 ### Installation
 

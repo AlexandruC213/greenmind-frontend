@@ -1,4 +1,5 @@
 import axiosInstance from "./axios";
+import Cookies from "js-cookie";
 
 interface RegisterData {
   name: string;
@@ -37,6 +38,14 @@ export const registerUser = async (data: RegisterData) => {
 export const loginUser = async (data: LoginData) => {
   try {
     const response = await axiosInstance.post("/auth/login", data);
+    const { token, userId } = response.data;
+    const expireInOneHour = 1 / 24;
+    Cookies.set("authToken", token, {
+      expires: data.rememberFor30Days ? 30 : expireInOneHour,
+    });
+    Cookies.set("userId", userId, {
+      expires: data.rememberFor30Days ? 30 : expireInOneHour,
+    });
     return response.data;
   } catch (error: any) {
     if (error.response?.data?.data?.length) {

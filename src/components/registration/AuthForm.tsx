@@ -57,8 +57,8 @@ const AuthForm = () => {
       } else {
         await loginUser({ email, password, rememberFor30Days: rememberMe });
         showToast("success", "Login successful.", "Welcome back!");
+        navigate("/products?page=1&perPage=3");
       }
-      navigate("/dashboard");
     } catch (error: any) {
       showToast(
         "error",
