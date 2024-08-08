@@ -9,14 +9,8 @@ import { useProducts } from "@/context/ProductsContext";
 const ProductsPage: React.FC = () => {
   const [showProductDrawer, setShowProductDrawer] = useState<boolean>(false);
 
-  const {
-    products,
-    page,
-    perPage,
-    disablePrevPage,
-    disableNextPage,
-    fetchProducts,
-  } = useProducts();
+  const { products, page, perPage, hasPrevPage, hasNextPage, fetchProducts } =
+    useProducts();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -71,14 +65,14 @@ const ProductsPage: React.FC = () => {
         </Button>
         <Button
           onClick={() => handlePageChange(page - 1)}
-          isDisabled={disablePrevPage}
+          isDisabled={!hasPrevPage}
         >
           Previous Page
         </Button>
         <Button
           ml={4}
           onClick={() => handlePageChange(page + 1)}
-          isDisabled={disableNextPage}
+          isDisabled={!hasNextPage}
         >
           Next Page
         </Button>

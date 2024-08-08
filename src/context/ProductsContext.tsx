@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 import {
   getProducts,
   getProduct,
@@ -19,8 +25,8 @@ export interface Product {
 
 interface ProductsContextProps {
   products: Product[];
-  disablePrevPage: boolean;
-  disableNextPage: boolean;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
   totalProducts: number;
   page: number;
   perPage: number;
@@ -35,14 +41,14 @@ const ProductsContext = createContext<ProductsContextProps | undefined>(
   undefined
 );
 
-export const ProductsProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const ProductsProvider: React.FC<{
+  children: ReactNode;
+}> = ({ children }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [page, setPage] = useState<number>(1);
   const [perPage, setPerPage] = useState<number>(3);
-  const [disablePrevPage, setDisablePrevPage] = useState<boolean>(false);
-  const [disableNextPage, setDisableNextPage] = useState<boolean>(false);
+  const [hasPrevPage, setHasPrevPage] = useState<boolean>(false);
+  const [hasNextPage, setHasNextPage] = useState<boolean>(false);
   const [totalProducts, setTotalProducts] = useState<number>(0);
 
   const fetchProducts = async (page: number, perPage: number) => {
@@ -51,8 +57,8 @@ export const ProductsProvider: React.FC<{ children: ReactNode }> = ({
       setProducts(() => [...data.products]);
       setPage(page);
       setPerPage(perPage);
-      setDisablePrevPage(!data.hasPrevPage);
-      setDisableNextPage(!data.hasNextPage);
+      setHasPrevPage(data.hasPrevPage);
+      setHasNextPage(data.hasNextPage);
       setTotalProducts(data.totalProducts);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -81,8 +87,8 @@ export const ProductsProvider: React.FC<{ children: ReactNode }> = ({
         }
         return prevProducts;
       });
-      setTotalProducts((currentTotalProducts) => currentTotalProducts + 1);
-      setDisableNextPage(() => perPage * page > totalProducts);
+      setTotalProducts((currentTotalProducts) => currentTotalProducts++);
+      setHasNextPage(() => perPage * page < totalProducts + 1);
     } catch (error) {
       console.error("Error adding product:", error);
     }
@@ -100,9 +106,14 @@ export const ProductsProvider: React.FC<{ children: ReactNode }> = ({
   const removeProduct = async (id: string) => {
     try {
       await deleteProduct(id);
-      setProducts((prevProducts) =>
-        prevProducts.filter((product) => product._id !== id)
-      );
+      setProducts((prevProducts) => {
+        const updatedProducts = prevProducts.filter(
+          (product) => product._id !== id
+        );
+        return updatedProducts;
+      });
+      setTotalProducts((currentTotalProducts) => currentTotalProducts--);
+      setHasNextPage(() => perPage * page < totalProducts - 1);
     } catch (error) {
       console.error("Error deleting product:", error);
     }
@@ -114,8 +125,8 @@ export const ProductsProvider: React.FC<{ children: ReactNode }> = ({
         products,
         page,
         perPage,
-        disablePrevPage,
-        disableNextPage,
+        hasPrevPage,
+        hasNextPage,
         totalProducts,
         fetchProducts,
         fetchProductById,

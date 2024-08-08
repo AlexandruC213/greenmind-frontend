@@ -30,7 +30,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
   const [productWidth, setProductWidth] = useState<string>("");
   const navigate = useNavigate();
 
-  const { products, perPage, removeProduct } = useProducts();
+  const { products, page, perPage, removeProduct } = useProducts();
 
   useEffect(() => {
     if (products.length <= perPage) {
@@ -40,6 +40,13 @@ const ProductItem: React.FC<ProductItemProps> = ({
       });
     }
   }, [products.length]);
+
+  const handleDeleteItem = () => {
+    removeProduct(product._id);
+    if (products.length === 1 && page > 1) {
+      navigate(`/products?page=${page - 1}&perPage=${perPage}`);
+    }
+  };
 
   return (
     <Box
@@ -87,7 +94,7 @@ const ProductItem: React.FC<ProductItemProps> = ({
                 Edit
               </MenuItem>
               <MenuItem
-                onClick={() => removeProduct(product._id)}
+                onClick={handleDeleteItem}
                 icon={<MdDelete size={22} />}
               >
                 Delete
